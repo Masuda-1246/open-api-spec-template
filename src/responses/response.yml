@@ -1,0 +1,51 @@
+200:
+  description: 成功時レスポンス
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/response.yml#/response"
+      examples:
+        success:
+          $ref: "../examples/response.yml#/success"
+302:
+  description: Auth0 の認証画面へリダイレクト
+  headers:
+    Set-Cookie:
+      schema:
+        type: string
+        example: id_token=ey....;access_token=abcd....;HttpOnly
+      description: id_token と access_token。 **厳密には Cookie はこの API の呼び出しで設定されるものではなく、認証画面を経由後の /callback へのリクエスト時に設定される。**
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/response.yml#/response"
+      examples:
+        unexpected_error:
+          $ref: "../examples/response.yml#/unexpected_error"
+400:
+  description: リクエストエラー
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/response.yml#/response"
+      examples:
+        bad_request:
+          $ref: "../examples/response.yml#/bad_request"
+404:
+  description: ページが見つかりません
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/response.yml#/response"
+      examples:
+        page_not_found_error:
+          $ref: "../examples/response.yml#/page_not_found_error"
+500:
+  description: サーバーエラー
+  content:
+    application/json:
+      schema:
+        $ref: "../schemas/response.yml#/response"
+      examples:
+        internal_server_error:
+          $ref: "../examples/response.yml#/internal_server_error"

@@ -1,0 +1,23 @@
+openapi: 3.1.0
+x-stoplight:
+  id: xxxxxxxx
+info:
+  title: open-api
+  version: "1.0"
+tags:
+  $ref: "./tag.yml"
+servers:
+  - url: "http://localhost:8080/v1"
+paths:
+  "/auth/login":
+    $ref: "./paths/auth/login.yml"
+  "/health":
+    $ref: "./paths/misc/health.yml"
+
+components:
+  schemas:
+    $ref: "./schemas/response.yml"
+  responses:
+    $ref: "./responses/response.yml"
+  examples:
+    $ref: "./examples/response.yml"

@@ -1,0 +1,16 @@
+{
+  "name": "api-spec",
+  "version": "1.0.0",
+  "description": "Open API generated client",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "openapi-generate": "rm -f typescript/*.ts && TS_POST_PROCESS_FILE='npx prettier --write' openapi-generator-cli generate -i OpenAPI.yml -g typescript-axios -o typescript --additional-properties=supportsES6=true,useSingleRequestParameter=true --enable-post-process-file"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apidevtools/swagger-cli": "^4.0.4",
+    "@openapitools/openapi-generator-cli": "^2.13.2"
+  }
+}

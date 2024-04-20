@@ -1,0 +1,39 @@
+success:
+  summary: Processing overload
+  value: |-
+    {
+      "code": 200,
+      "message": ""
+    }
+
+unexpected_error:
+  summary: Unexpected error
+  value: |-
+    {
+      "code": 302,
+      "message": "Unexpected error"
+    }
+
+bad_request:
+  summary: Bad request
+  value: |-
+    {
+      "code": 400,
+      "message": "Bad request"
+    }
+
+page_not_found_error:
+  summary: Page not found
+  value: |-
+    {
+      "code": 404,
+      "message": "Page not found"
+    }
+
+internal_server_error:
+  summary: Internal server error
+  value: |-
+    {
+      "code": 500,
+      "message": "Internal server error"
+    }

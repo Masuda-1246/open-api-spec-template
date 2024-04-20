@@ -1,0 +1,18 @@
+post:
+  summary: ログイン
+  description: ログイン処理を行う
+  operationId: login
+  security: []
+  tags:
+    - auth
+  responses:
+    "200":
+      $ref: "../../responses/response.yml#/200"
+    "302":
+      $ref: "../../responses/response.yml#/302"
+    "400":
+      $ref: "../../responses/response.yml#/400"
+    "404":
+      $ref: "../../responses/response.yml#/404"
+    "500":
+      $ref: "../../responses/response.yml#/500"

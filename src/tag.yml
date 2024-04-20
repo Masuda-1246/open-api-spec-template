@@ -1,0 +1,4 @@
+- name: auth
+  description: 認証・アカウントに関するエンドポイント
+- name: misc
+  description: いずれにも属さないエンドポイント（ヘルスチェックなど）

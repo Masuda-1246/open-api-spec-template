@@ -1,0 +1,14 @@
+version: '3' # composeファイルのバージョン
+services:
+  api: # サービス名
+    container_name: api
+    build: # ビルドに使うDockerファイルのパス
+      context: .
+      dockerfile: ./Dockerfile
+    volumes: # マウントディレクトリ
+      - ./api:/go/src/github.com/api
+    tty: true # コンテナの永続化
+    ports:
+      - 8080:8080
+    environment:
+      - TZ=Asia/Tokyo
