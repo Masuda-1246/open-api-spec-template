@@ -1,0 +1,151 @@
+openapi: 3.1.0
+x-stoplight:
+  id: xxxxxxxx
+info:
+  title: open-api
+  version: '1.0'
+tags:
+  - name: auth
+    description: 認証・アカウントに関するエンドポイント
+  - name: misc
+    description: いずれにも属さないエンドポイント（ヘルスチェックなど）
+servers:
+  - url: 'http://localhost:8080/v1'
+paths:
+  /auth/login:
+    post:
+      summary: ログイン
+      description: ログイン処理を行う
+      operationId: login
+      security: []
+      tags:
+        - auth
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '302':
+          $ref: '#/components/responses/302'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+  /health:
+    parameters: []
+    get:
+      summary: ヘルスチェック
+      operationId: check-healthy
+      security: []
+      responses:
+        '200':
+          $ref: '#/components/responses/200'
+        '302':
+          $ref: '#/components/responses/302'
+        '400':
+          $ref: '#/components/responses/400'
+        '404':
+          $ref: '#/components/responses/404'
+        '500':
+          $ref: '#/components/responses/500'
+components:
+  schemas:
+    response:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+  responses:
+    '200':
+      description: 成功時レスポンス
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response'
+          examples:
+            success:
+              $ref: '#/components/examples/success'
+    '302':
+      description: Auth0 の認証画面へリダイレクト
+      headers:
+        Set-Cookie:
+          schema:
+            type: string
+            example: id_token=ey....;access_token=abcd....;HttpOnly
+          description: id_token と access_token。 **厳密には Cookie はこの API の呼び出しで設定されるものではなく、認証画面を経由後の /callback へのリクエスト時に設定される。**
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response'
+          examples:
+            unexpected_error:
+              $ref: '#/components/examples/unexpected_error'
+    '400':
+      description: リクエストエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response'
+          examples:
+            bad_request:
+              $ref: '#/components/examples/bad_request'
+    '404':
+      description: ページが見つかりません
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response'
+          examples:
+            page_not_found_error:
+              $ref: '#/components/examples/page_not_found_error'
+    '500':
+      description: サーバーエラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/response'
+          examples:
+            internal_server_error:
+              $ref: '#/components/examples/internal_server_error'
+  examples:
+    success:
+      summary: Processing overload
+      value: |-
+        {
+          "code": 200,
+          "message": ""
+        }
+    unexpected_error:
+      summary: Unexpected error
+      value: |-
+        {
+          "code": 302,
+          "message": "Unexpected error"
+        }
+    bad_request:
+      summary: Bad request
+      value: |-
+        {
+          "code": 400,
+          "message": "Bad request"
+        }
+    page_not_found_error:
+      summary: Page not found
+      value: |-
+        {
+          "code": 404,
+          "message": "Page not found"
+        }
+    internal_server_error:
+      summary: Internal server error
+      value: |-
+        {
+          "code": 500,
+          "message": "Internal server error"
+        }
