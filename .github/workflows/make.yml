@@ -4,12 +4,23 @@ jobs:
   build-spec-file:
     runs-on: ubuntu-latest
     steps:
-      - name: step1
-        run: |
-          pwd
-          ls -la
       - uses: actions/checkout@v2
-      - name: Run Make File
-        run: make setup && make gen
+      - name: npm install
+        run: |
+          npm install -g swagger-cli
+          npx swagger-cli bundle -o OpenAPI.yml -t yaml src/root.yml
+      - name: run openapi2go.sh
+        run: sh oapi2go.sh
+      - name: run openapi2typescript.sh
+        run: sh oapi2ts.sh
       - name: Commit Generated Files
-        run: git add . && git commit -m "Add generated files" && git push
+        run: |
+          git add -N . # 新規ファイルを含める
+          if ! git diff --exit-code --quiet
+          then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit -m "Update"
+            git push origin HEAD:refs/heads/$GITHUB_HEAD_REF
+          fi
