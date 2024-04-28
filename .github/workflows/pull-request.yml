@@ -17,19 +17,17 @@ jobs:
         run: sh oapi2go.sh
       - name: run openapi2typescript.sh
         run: sh oapi2ts.sh
-      - name: Diff
-        id: diff
+      - name: Commit & Push
         run: |
-          git add -N .
-          git diff --name-only --exit-code
-        continue-on-error: true
-      - name: commit & push
-        run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add .
-          git commit -m "Commit message"
-          git push
+          git add -N . # 新規ファイルを含める
+          if ! git diff --exit-code --quiet
+          then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit -m "Update"
+            git push
+          fi
   build_and_preview:
     needs: build-spec-file
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
