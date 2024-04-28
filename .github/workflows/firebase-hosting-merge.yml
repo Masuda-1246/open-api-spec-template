@@ -17,3 +17,5 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_OPEN_API_SPEC_TEMPLATE }}'
           channelId: live
           projectId: open-api-spec-template
+          # デプロイするディレクトリを指定
+          

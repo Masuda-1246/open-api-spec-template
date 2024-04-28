@@ -15,6 +15,9 @@ gen:
 .PHONY: openapi-gen
 openapi-gen:
 	swagger-cli bundle -o $(OPENAPI_FILE) -t yaml $(ROOT_FILE)
+	cp $(OPENAPI_FILE) ./typescript/$(OPENAPI_FILE)
+	cp $(OPENAPI_FILE) ./go/$(OPENAPI_FILE)
+	cp $(OPENAPI_FILE) ./view/$(OPENAPI_FILE)
 
 .PHONY: go-gen
 go-gen:

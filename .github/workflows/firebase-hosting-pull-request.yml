@@ -14,3 +14,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_OPEN_API_SPEC_TEMPLATE }}'
           projectId: open-api-spec-template
+          
