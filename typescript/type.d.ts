@@ -3,140 +3,100 @@
  * Do not make direct changes to the file.
  */
 
+
 export interface paths {
-    "/auth/login": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        /**
-         * ログイン
-         * @description ログイン処理を行う
-         */
-        post: operations["login"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
-    "/health": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        /** ヘルスチェック */
-        get: operations["check-healthy"];
-        put?: never;
-        post?: never;
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
+  "/auth/login": {
+    /**
+     * ログイン
+     * @description ログイン処理を行う
+     */
+    post: operations["login"];
+  };
+  "/health": {
+    /** ヘルスチェック */
+    get: operations["check-healthy"];
+  };
 }
+
 export type webhooks = Record<string, never>;
+
 export interface components {
-    schemas: {
-        response: {
-            /** Format: int32 */
-            code: number;
-            message: string;
-        };
+  schemas: {
+    response: {
+      /** Format: int32 */
+      code: number;
+      message: string;
     };
-    responses: {
-        /** @description 成功時レスポンス */
-        200: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["response"];
-            };
-        };
-        /** @description Auth0 の認証画面へリダイレクト */
-        302: {
-            headers: {
-                /** @description id_token と access_token。 **厳密には Cookie はこの API の呼び出しで設定されるものではなく、認証画面を経由後の /callback へのリクエスト時に設定される。** */
-                "Set-Cookie"?: string;
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["response"];
-            };
-        };
-        /** @description リクエストエラー */
-        400: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["response"];
-            };
-        };
-        /** @description ページが見つかりません */
-        404: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["response"];
-            };
-        };
-        /** @description サーバーエラー */
-        500: {
-            headers: {
-                [name: string]: unknown;
-            };
-            content: {
-                "application/json": components["schemas"]["response"];
-            };
-        };
+  };
+  responses: {
+    /** @description 成功時レスポンス */
+    200: {
+      content: {
+        "application/json": components["schemas"]["response"];
+      };
     };
-    parameters: never;
-    requestBodies: never;
-    headers: never;
-    pathItems: never;
+    /** @description Auth0 の認証画面へリダイレクト */
+    302: {
+      headers: {
+        /** @description id_token と access_token。 **厳密には Cookie はこの API の呼び出しで設定されるものではなく、認証画面を経由後の /callback へのリクエスト時に設定される。** */
+        "Set-Cookie"?: string;
+      };
+      content: {
+        "application/json": components["schemas"]["response"];
+      };
+    };
+    /** @description リクエストエラー */
+    400: {
+      content: {
+        "application/json": components["schemas"]["response"];
+      };
+    };
+    /** @description ページが見つかりません */
+    404: {
+      content: {
+        "application/json": components["schemas"]["response"];
+      };
+    };
+    /** @description サーバーエラー */
+    500: {
+      content: {
+        "application/json": components["schemas"]["response"];
+      };
+    };
+  };
+  parameters: never;
+  requestBodies: never;
+  headers: never;
+  pathItems: never;
 }
+
 export type $defs = Record<string, never>;
+
+export type external = Record<string, never>;
+
 export interface operations {
-    login: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["200"];
-            302: components["responses"]["302"];
-            400: components["responses"]["400"];
-            404: components["responses"]["404"];
-            500: components["responses"]["500"];
-        };
+
+  /**
+   * ログイン
+   * @description ログイン処理を行う
+   */
+  login: {
+    responses: {
+      200: components["responses"]["200"];
+      302: components["responses"]["302"];
+      400: components["responses"]["400"];
+      404: components["responses"]["404"];
+      500: components["responses"]["500"];
     };
-    "check-healthy": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody?: never;
-        responses: {
-            200: components["responses"]["200"];
-            302: components["responses"]["302"];
-            400: components["responses"]["400"];
-            404: components["responses"]["404"];
-            500: components["responses"]["500"];
-        };
+  };
+  /** ヘルスチェック */
+  "check-healthy": {
+    responses: {
+      200: components["responses"]["200"];
+      302: components["responses"]["302"];
+      400: components["responses"]["400"];
+      404: components["responses"]["404"];
+      500: components["responses"]["500"];
     };
+  };
 }
