@@ -1,4 +1,4 @@
-name: Run Make File
+name: Run Pull Request
 on: pull_request
 
 jobs:
@@ -17,10 +17,27 @@ jobs:
         run: sh oapi2go.sh
       - name: run openapi2typescript.sh
         run: sh oapi2ts.sh
-      - name: commit push
+      - name: Diff
+        id: diff
+        run: |
+          git add -N .
+          git diff --name-only --exit-code
+        continue-on-error: true
+      - name: commit & push
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add .
           git commit -m "Commit message"
           git push
+  build_and_preview:
+    needs: build-spec-file
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_OPEN_API_SPEC_TEMPLATE }}'
+          projectId: open-api-spec-template
