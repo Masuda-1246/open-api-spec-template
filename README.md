@@ -1,21 +1,62 @@
 # open-api-spec-template
 
+# OpenAPI url
+https://open-api-spec-template.web.app
+
 ## ディレクトリ構成
 ```
-├── src/
-│   ├── examples/ #サンプル定義
-│   ├── paths/ #パス定義
-│   ├── responses/ #レスポンス定義
-│   ├── schemas/ #スキーマ定義
-│   ├── root.yml #OpenAPIのルート定義
-│   └── tags.yml #タグ定義
-├── go/ #go用のアウトプットディレクトリ
-├── typescript/ #typescript用のアウトプットディレクトリ
-├── OpenAPI.yml #OpenAPI定義(出力されたファイル)
-├── Makefile #Makefile
-├── Dockerfile #Dockerfile
-├── oapi2go.sh #openapiからgo言語生成するスクリプト
-└── package.json #typescript用のパッケージファイル
+.
+├── Makefile
+├── OpenAPI.yml
+├── README.md
+├── a.txt
+├── firebase.json
+├── go
+│   ├── Dockerfile
+│   ├── OpenAPI.yml
+│   ├── server.gen.go
+│   ├── spec.gen.go
+│   └── types.gen.go
+├── oapi2go.sh
+├── oapi2ts.sh
+├── openapitools.json
+├── package-lock.json
+├── package.json
+├── server
+│   ├── Dockerfile
+│   ├── api
+│   │   ├── go.mod
+│   │   ├── go.sum
+│   │   ├── main.go
+│   │   └── openapi
+│   │       ├── server.gen.go
+│   │       ├── spec.gen.go
+│   │       └── types.gen.go
+│   └── docker-compose.yml
+├── src
+│   ├── examples
+│   │   └── response.yml
+│   ├── paths
+│   │   ├── auth
+│   │   │   └── login.yml
+│   │   └── misc
+│   │       └── health.yml
+│   ├── responses
+│   │   └── response.yml
+│   ├── root.yml
+│   ├── schemas
+│   │   └── response.yml
+│   └── tag.yml
+├── typescript
+│   ├── Dockerfile
+│   ├── OpenAPI.yml
+│   └── type.d.ts
+└── view
+    ├── 404.html
+    ├── OpenAPI.yml
+    ├── index.html
+    ├── package-lock.json
+    └── package.json
 ```
 
 ## 依存関係
