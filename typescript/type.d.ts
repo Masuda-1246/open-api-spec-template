@@ -27,6 +27,13 @@ export interface components {
       code: number;
       message: string;
     };
+    user: {
+      /** Format: int32 */
+      id: number;
+      name: string;
+      email: string;
+      password: string;
+    };
   };
   responses: {
     /** @description 成功時レスポンス */

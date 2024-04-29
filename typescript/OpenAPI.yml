@@ -63,6 +63,23 @@ components:
           format: int32
         message:
           type: string
+    user:
+      type: object
+      required:
+        - id
+        - name
+        - email
+        - password
+      properties:
+        id:
+          type: integer
+          format: int32
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
   responses:
     '200':
       description: 成功時レスポンス
