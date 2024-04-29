@@ -16,7 +16,10 @@ paths:
 
 components:
   schemas:
-    $ref: "./schemas/response.yml"
+    response:
+      $ref: "./schemas/response.yml"
+    user:
+      $ref: "./schemas/user.yml"
   responses:
     $ref: "./responses/response.yml"
   examples:
