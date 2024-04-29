@@ -2,7 +2,7 @@ openapi: 3.0.0
 x-stoplight:
   id: xxxxxxxx
 info:
-  title: open-api
+  title: open-api-spec
   version: '1.0'
 tags:
   - name: auth

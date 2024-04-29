@@ -1,0 +1,41 @@
+name: Run Pull Request
+on: pull_request
+
+jobs:
+  build-spec-file:
+    runs-on: ubuntu-latest
+    steps:
+      - run: cat $GITHUB_EVENT_PATH
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - name: npm install
+        run: |
+          npm install -g swagger-cli
+          npx swagger-cli bundle -o OpenAPI.yml -t yaml src/root.yml
+      - name: run openapi2go.sh
+        run: sh oapi2go.sh
+      - name: run openapi2typescript.sh
+        run: sh oapi2ts.sh
+      - name: Commit & Push
+        run: |
+          git add -N . # 新規ファイルを含める
+          if ! git diff --exit-code --quiet
+          then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit -m "Update"
+            git push
+          fi
+  build_and_preview:
+    needs: build-spec-file
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_OPEN_API_SPEC_TEMPLATE }}'
+          projectId: open-api-spec-template
