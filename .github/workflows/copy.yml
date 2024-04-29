@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    # paths:
+    paths:
       # srcディレクトリ以下のファイルが更新された場合のみ実行
-      # - 'src/**'
+      - 'src/**'
   workflow_dispatch:
 
 jobs:
