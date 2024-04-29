@@ -1,0 +1,61 @@
+name: copy Golang file
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      # srcディレクトリ以下のファイルが更新された場合のみ実行
+      - 'src/**'
+  workflow_dispatch:
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Generate token
+        id: generate_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.PRIVATE_KEY }}
+      - name: Setup commit description
+        env:
+          RUN_URL: "${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}"
+          HEAD_COMMIT_URL: "${{ github.event.repository.html_url }}/commit/${{ github.event.after || github.sha }}"
+        id: setup_description
+        run: |
+          DESCRIPTION=$(cat << EOF
+          update golang 🚀
+
+          created from ${{ env.RUN_URL }}
+          latest commit: ${{ env.HEAD_COMMIT_URL }}
+          )
+          DESCRIPTION="${DESCRIPTION//$'\n'/'%0A'}"
+          echo "::set-output name=content::$DESCRIPTION"
+      - name: Copy Golang File
+        uses: dmnemec/copy_file_to_another_repo_action@v1.1.1
+        env:
+          API_TOKEN_GITHUB: ${{ steps.generate_token.outputs.token }}
+        with:
+          source_file: "go/*.go"
+          destination_repo: "Masuda-1246/go-clean-arch"
+          destination_folder: "app/internal/interfaces/openapi"
+          destination_branch: "open-api-spec"
+          destination_branch_create: "feature/openapi-spec"
+          user_email: "github-actions[bot]@users.noreply.github.com"
+          user_name: "github-actions[bot]"
+          commit_message: ${{ steps.setup_description.outputs.content }}
+      - name: create Pull Request to another-repo
+        run: |
+          gh pr create \
+            --title "update GraphQL Schema file " \
+            --body "${{ steps.setup_description.outputs.content }}" \
+            --repo MyOrg/another-repo \
+            --base main \
+            --head feature/openapi-spec \
+            --reviewer "${{ github.event.head_commit.committer.username || github.triggering_actor }}"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
