@@ -9,6 +9,8 @@ tags:
     description: 認証・アカウントに関するエンドポイント
   - name: misc
     description: いずれにも属さないエンドポイント（ヘルスチェックなど）
+  - name: user
+    description: ユーザーに関するエンドポイント
 servers:
   - url: 'http://localhost:8080/v1'
 paths:
