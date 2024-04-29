@@ -27,12 +27,12 @@ jobs:
           HEAD_COMMIT_URL: "${{ github.event.repository.html_url }}/commit/${{ github.event.after || github.sha }}"
         id: setup_description
         run: |
-          DESCRIPTION=$(cat << EOF
+          DESCRIPTION=$(cat <<EOF
           update golang 🚀
 
           created from ${{ env.RUN_URL }}
           latest commit: ${{ env.HEAD_COMMIT_URL }}
-          )
+          EOF)
           DESCRIPTION="${DESCRIPTION//$'\n'/'%0A'}"
           echo "::set-output name=content::$DESCRIPTION"
       - name: Copy Golang File
