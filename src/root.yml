@@ -17,9 +17,9 @@ paths:
 components:
   schemas:
     response:
-      $ref: "./schemas/response.yml"
+      $ref: "./schemas/response.yml#/response"
     user:
-      $ref: "./schemas/user.yml"
+      $ref: "./schemas/user.yml#/user"
   responses:
     $ref: "./responses/response.yml"
   examples:
