@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    paths:
+    # paths:
       # srcディレクトリ以下のファイルが更新された場合のみ実行
-      - 'src/**'
+      # - 'src/**'
   workflow_dispatch:
 
 jobs:
@@ -40,7 +40,7 @@ jobs:
         env:
           API_TOKEN_GITHUB: ${{ steps.generate_token.outputs.token }}
         with:
-          source_file: "go/*.go"
+          source_file: "go/"
           destination_repo: "Masuda-1246/go-clean-arch"
           destination_folder: "app/internal/interfaces/openapi"
           destination_branch: "open-api-spec"
