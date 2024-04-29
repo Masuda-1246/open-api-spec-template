@@ -43,19 +43,18 @@ jobs:
           source_file: "go/"
           destination_repo: "Masuda-1246/go-clean-arch"
           destination_folder: "app/internal/interfaces/openapi"
-          destination_branch: "open-api-spec"
-          destination_branch_create: "feature/openapi-spec"
+          destination_branch: "openapi-spec"
           user_email: "github-actions[bot]@users.noreply.github.com"
           user_name: "github-actions[bot]"
           commit_message: ${{ steps.setup_description.outputs.content }}
       - name: create Pull Request to another-repo
         run: |
           gh pr create \
-            --title "update GraphQL Schema file " \
+            --title "update Golang file" \
             --body "${{ steps.setup_description.outputs.content }}" \
-            --repo MyOrg/another-repo \
+            --repo Masuda-1246/go-clean-arch \
             --base main \
-            --head feature/openapi-spec \
+            --head openapi-spec \
             --reviewer "${{ github.event.head_commit.committer.username || github.triggering_actor }}"
         env:
           GH_TOKEN: ${{ steps.generate_token.outputs.token }}
