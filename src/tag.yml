@@ -2,3 +2,5 @@
   description: 認証・アカウントに関するエンドポイント
 - name: misc
   description: いずれにも属さないエンドポイント（ヘルスチェックなど）
+- name: user
+  description: ユーザーに関するエンドポイント
